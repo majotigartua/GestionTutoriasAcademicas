@@ -11,8 +11,8 @@ public class ConexionBaseDatos {
     private static final String PORT = "3306";
     private static final String URL_CONEXION = "jdbc:mysql://" + HOSTNAME + ":" + PORT + "/" + DATABASE + "?serverTimezone=UTC";
 
-    private static final String USERNAME = "majotigartua";
-    private static final String PASSWORD = "INGSOFTMySQL3306";
+    private static final String USERNAME = "?";
+    private static final String PASSWORD = "?";
 
     public static Connection abrirConexion() {
         Connection conexionBaseDatos = null;
