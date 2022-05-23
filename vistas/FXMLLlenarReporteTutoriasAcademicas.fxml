@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiontutoriasacademicas.vistas.FXMLLlenarReporteTutoriasAcademicasController">
+   <children>
+      <Label layoutX="79.0" layoutY="42.0" text="Reporte de Tutorías Académicas">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="69.0" text="Ingeniería de Software">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="503.0" layoutY="44.0" text="Facultad de Estadística e Informática">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="581.0" layoutY="70.0" text="Región Xalapa">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="120.0" text="Periodo Escolar:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="164.0" text="Fecha:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="515.0" layoutY="164.0" text="Número de sesión:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldPeriodoEscolar" layoutX="170.0" layoutY="117.0" prefHeight="25.0" prefWidth="237.0" />
+      <TextField fx:id="textFieldFecha" layoutX="134.0" layoutY="161.0" prefHeight="25.0" prefWidth="273.0" />
+      <TextField fx:id="textFieldNumSesion" layoutX="643.0" layoutY="161.0" prefHeight="25.0" prefWidth="86.0" />
+      <Label layoutX="52.0" layoutY="219.0" text="Seleccione a los estudiantes asistentes a la tutoría académica y, de ser el caso, indique si están en riesgo. *">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TableView layoutX="52.0" layoutY="259.0" prefHeight="243.0" prefWidth="463.0">
+        <columns>
+          <TableColumn prefWidth="118.0" text="Matrícula" />
+          <TableColumn prefWidth="194.0" text="Nombre completo" />
+            <TableColumn prefWidth="72.0" text="Asistió" />
+            <TableColumn prefWidth="78.0" text="En riesgo" />
+        </columns>
+      </TableView>
+      <Label layoutX="544.0" layoutY="318.0" text="Número de estudiantes asistentes:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="546.0" layoutY="394.0" text="Número de estudiantes en riesgo:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldNumEstudiantesAsistentes" layoutX="600.0" layoutY="352.0" prefHeight="25.0" prefWidth="86.0" />
+      <TextField fx:id="textFieldNumEstudiantesEnRiesgo" layoutX="600.0" layoutY="427.0" prefHeight="25.0" prefWidth="86.0" />
+      <Button layoutX="668.0" layoutY="535.0" mnemonicParsing="false" onAction="#clicButtonCancelar" prefHeight="29.0" prefWidth="86.0" text="Cancelar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="52.0" layoutY="535.0" mnemonicParsing="false" onAction="#clicButtonAceptar" prefHeight="29.0" prefWidth="86.0" text="Aceptar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="159.0" layoutY="524.0" mnemonicParsing="false" onAction="#clicButtonRegistrarProblematicaAcademica" prefHeight="52.0" prefWidth="167.0" text="Registrar problemática académica" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="348.0" layoutY="524.0" mnemonicParsing="false" onAction="#clicButtonRegistrarComentarioGeneral" prefHeight="52.0" prefWidth="167.0" text="Registrar comentario general" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
