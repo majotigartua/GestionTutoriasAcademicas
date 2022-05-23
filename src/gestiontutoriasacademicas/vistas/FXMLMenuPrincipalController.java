@@ -12,7 +12,11 @@ public class FXMLMenuPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
+    private void configurarEscena(){
+        // TODO
+    }
+    
     @FXML
     private void clicButtonLlenarReporteTutoriasAcademicas(ActionEvent event) {
     }

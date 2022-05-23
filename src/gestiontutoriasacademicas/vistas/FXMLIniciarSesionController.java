@@ -19,11 +19,18 @@ public class FXMLIniciarSesionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @FXML
     private void clicButtonIngresar(ActionEvent event) {
+        // TODO
     }
     
+    private void validarInicioSesion(ActionEvent event){
+        // TODO
+    }
+    
+    private void irMenuPrincipal(ActionEvent event){
+        // TODO
+    }
 }
