@@ -1,6 +1,8 @@
 package gestiontutoriasacademicas.vistas;
 
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;
+import gestiontutoriasacademicas.util.Constantes;
+import gestiontutoriasacademicas.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class FXMLMenuPrincipalController implements Initializable {
@@ -34,10 +37,24 @@ public class FXMLMenuPrincipalController implements Initializable {
 
     @FXML
     private void clicButtonConsultarProblematicaAcademica(ActionEvent event) {
+        if (tutorAcademico.getIdRol() == Constantes.ID_ROL_COORDINADOR_TUTORIAS_ACADEMICAS || tutorAcademico.getIdRol() == Constantes.ID_ROL_JEFE_CARRERA) {
+            // TODO
+        } else {
+             Utilidades.mostrarAlerta("AVISO",
+                        "No tiene permiso de acceso a esta funcionalidad. \n\nPor favor, inténtelo nuevamente.\n",
+                        Alert.AlertType.WARNING);
+        }
     }
 
     @FXML
     private void clicButtonConsultarReporteTutorAcademico(ActionEvent event) {
+        if (tutorAcademico.getIdRol() == Constantes.ID_ROL_COORDINADOR_TUTORIAS_ACADEMICAS || tutorAcademico.getIdRol() == Constantes.ID_ROL_JEFE_CARRERA) {
+            // TODO
+        } else {
+             Utilidades.mostrarAlerta("AVISO",
+                        "No tiene permiso de acceso a esta funcionalidad. \n\nPor favor, inténtelo nuevamente.\n",
+                        Alert.AlertType.WARNING);
+        }
     }
 
     @FXML
