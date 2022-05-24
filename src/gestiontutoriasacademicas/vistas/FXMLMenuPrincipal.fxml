@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiontutoriasacademicas.vistas.FXMLMenuPrincipalController">
+   <children>
+      <Label layoutX="340.0" layoutY="65.0" text="Menú principal">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="118.0" layoutY="161.0" mnemonicParsing="false" onAction="#clicButtonLlenarReporteTutoriasAcademicas" prefHeight="115.0" prefWidth="254.0" text="Llenar Reporte de Tutorías Academicas" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="118.0" layoutY="334.0" mnemonicParsing="false" onAction="#clicButtonEditarProblematicaAcademica" prefHeight="115.0" prefWidth="254.0" text="Editar problemática académica" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="446.0" layoutY="161.0" mnemonicParsing="false" onAction="#clicButtonConsultarProblematicaAcademica" prefHeight="115.0" prefWidth="254.0" text="Consultar problemática académica" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="446.0" layoutY="334.0" mnemonicParsing="false" onAction="#clicButtonConsultarReporteTutorAcademico" prefHeight="115.0" prefWidth="254.0" text="Consultar Reporte por Tutor Académico" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="340.0" layoutY="517.0" mnemonicParsing="false" onAction="#clicButtonCerrarSesion" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #C1C1C1;" text="Cerrar sesión" />
+   </children>
+</AnchorPane>
