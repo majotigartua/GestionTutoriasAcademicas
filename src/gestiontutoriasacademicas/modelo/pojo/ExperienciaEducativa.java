@@ -9,9 +9,10 @@ public class ExperienciaEducativa {
     public ExperienciaEducativa() {
     }
 
-    public ExperienciaEducativa(int idExperienciaEducativa, String nombre) {
+    public ExperienciaEducativa(int idExperienciaEducativa, String nombre, String descripcion) {
         this.idExperienciaEducativa = idExperienciaEducativa;
         this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public int getIdExperienciaEducativa() {
