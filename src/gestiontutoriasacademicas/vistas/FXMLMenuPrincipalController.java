@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -33,16 +34,41 @@ public class FXMLMenuPrincipalController implements Initializable {
 
     @FXML
     private void clicButtonEditarProblematicaAcademica(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicasAcademicas.fxml"));
+            try {
+                Parent root = loader.load();
+                FXMLProblematicasAcademicasController problematicasAcademicas = loader.getController();
+                problematicasAcademicas.configurarEscena(false, tutorAcademico);
+                Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene pantallaProblematicasAcademicas = new Scene(root);
+                escenarioPrincipal.setScene(pantallaProblematicasAcademicas);
+                escenarioPrincipal.setTitle("");
+                escenarioPrincipal.show();
+            } catch (IOException ex) {
+                System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
+            }
     }
 
     @FXML
     private void clicButtonConsultarProblematicaAcademica(ActionEvent event) {
         if (tutorAcademico.getIdRol() == Constantes.ID_ROL_COORDINADOR_TUTORIAS_ACADEMICAS || tutorAcademico.getIdRol() == Constantes.ID_ROL_JEFE_CARRERA) {
-            // TODO
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicasAcademicas.fxml"));
+            try {
+                Parent root = loader.load();
+                FXMLProblematicasAcademicasController problematicasAcademicas = loader.getController();
+                problematicasAcademicas.configurarEscena(true, tutorAcademico);
+                Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene pantallaProblematicasAcademicas = new Scene(root);
+                escenarioPrincipal.setScene(pantallaProblematicasAcademicas);
+                escenarioPrincipal.setTitle("");
+                escenarioPrincipal.show();
+            } catch (IOException ex) {
+                System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
+            }
         } else {
-             Utilidades.mostrarAlerta("AVISO",
-                        "No tiene permiso de acceso a esta funcionalidad. \n\nPor favor, inténtelo nuevamente.\n",
-                        Alert.AlertType.WARNING);
+            Utilidades.mostrarAlerta("AVISO",
+                    "Actualmente no tiene permiso de acceso a esta acción. \n\nPor favor, inténtelo más tarde.\n",
+                    Alert.AlertType.WARNING);
         }
     }
 
@@ -51,15 +77,15 @@ public class FXMLMenuPrincipalController implements Initializable {
         if (tutorAcademico.getIdRol() == Constantes.ID_ROL_COORDINADOR_TUTORIAS_ACADEMICAS || tutorAcademico.getIdRol() == Constantes.ID_ROL_JEFE_CARRERA) {
             // TODO
         } else {
-             Utilidades.mostrarAlerta("AVISO",
-                        "No tiene permiso de acceso a esta funcionalidad. \n\nPor favor, inténtelo nuevamente.\n",
-                        Alert.AlertType.WARNING);
+            Utilidades.mostrarAlerta("AVISO",
+                    "Actualmente no tiene permiso de acceso a esta acción. \n\nPor favor, inténtelo más tarde.\n",
+                    Alert.AlertType.WARNING);
         }
     }
 
     @FXML
     private void clicButtonCerrarSesion(ActionEvent event) {
-        Stage escenario = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
         try {
             Scene pantallaIniciarSesion = new Scene(FXMLLoader.load(getClass().getResource("FXMLIniciarSesion.fxml")));
             escenario.setScene(pantallaIniciarSesion);
