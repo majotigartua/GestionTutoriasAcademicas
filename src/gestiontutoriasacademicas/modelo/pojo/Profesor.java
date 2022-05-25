@@ -1,37 +1,31 @@
 package gestiontutoriasacademicas.modelo.pojo;
 
-public class TutorAcademico {
+public class Profesor {
     
-    private String nombreUsuario;
+    private int idProfesor;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private String contrasenia;
     private String correoElectronicoInstitucional;
     private String correoElectronicoPersonal;
-    private int idTipoContratacion;
-    private int idRol;
-    private int codigoRespuesta;
 
-    public TutorAcademico() {
+    public Profesor() {
     }
 
-    public TutorAcademico(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronicoInstitucional, int idTipoContratacion, int idRol) {
-        this.nombreUsuario = nombreUsuario;
+    public Profesor(int idProfesor, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronicoInstitucional) {
+        this.idProfesor = idProfesor;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correoElectronicoInstitucional = correoElectronicoInstitucional;
-        this.idTipoContratacion = idTipoContratacion;
-        this.idRol = idRol;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public int getIdProfesor() {
+        return idProfesor;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setIdProfesor(int idProfesor) {
+        this.idProfesor = idProfesor;
     }
 
     public String getNombre() {
@@ -58,14 +52,6 @@ public class TutorAcademico {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
     public String getCorreoElectronicoInstitucional() {
         return correoElectronicoInstitucional;
     }
@@ -80,30 +66,6 @@ public class TutorAcademico {
 
     public void setCorreoElectronicoPersonal(String correoElectronicoPersonal) {
         this.correoElectronicoPersonal = correoElectronicoPersonal;
-    }
-
-    public int getIdTipoContratacion() {
-        return idTipoContratacion;
-    }
-
-    public void setIdTipoContratacion(int idTipoContratacion) {
-        this.idTipoContratacion = idTipoContratacion;
-    }
-
-    public int getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
-    }
-
-    public int getCodigoRespuesta() {
-        return codigoRespuesta;
-    }
-
-    public void setCodigoRespuesta(int codigoRespuesta) {
-        this.codigoRespuesta = codigoRespuesta;
     }
     
 }
