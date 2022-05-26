@@ -6,7 +6,6 @@
  */
 package gestiontutoriasacademicas.vistas;
 
-import gestiontutoriasacademicas.interfaces.InterfaceProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.dao.ProblematicaAcademicaDAO;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;

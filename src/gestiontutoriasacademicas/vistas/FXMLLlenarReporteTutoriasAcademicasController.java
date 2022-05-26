@@ -1,5 +1,6 @@
 package gestiontutoriasacademicas.vistas;
 
+import gestiontutoriasacademicas.interfaces.InterfaceProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable {
+public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable, InterfaceProblematicaAcademica {
 
     @FXML
     private TextField textFieldPeriodoEscolar;
@@ -85,6 +86,11 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
         } catch (IOException ex) {
             System.err.println("Error al cargar la pantalla de menú principal...");
         }
+    }
+
+    @Override
+    public void notificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
+        // TODO
     }
 
 }
