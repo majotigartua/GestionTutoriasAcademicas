@@ -1,7 +1,7 @@
 package gestiontutoriasacademicas.modelo.pojo;
 
 public class ProblematicaAcademica {
-    
+
     private int idProblematicaAcademica;
     private String titulo;
     private String descripcion;
@@ -16,7 +16,7 @@ public class ProblematicaAcademica {
     }
 
     public ProblematicaAcademica(int idProblematicaAcademica, String titulo, String descripcion, int numEstudiantes,
-            int idProfesor, int idExperienciaEducativa, String codigoPeriodoEscolar, int idReporteTutoriasAcademicas) {
+            int idExperienciaEducativa, int idProfesor, String codigoPeriodoEscolar, int idReporteTutoriasAcademicas) {
         this.idProblematicaAcademica = idProblematicaAcademica;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -59,20 +59,20 @@ public class ProblematicaAcademica {
         this.numEstudiantes = numEstudiantes;
     }
 
-    public int getIdProfesor() {
-        return idProfesor;
-    }
-
-    public void setIdProfesor(int idProfesor) {
-        this.idProfesor = idProfesor;
-    }
-
     public int getIdExperienciaEducativa() {
         return idExperienciaEducativa;
     }
 
     public void setIdExperienciaEducativa(int idExperienciaEducativa) {
         this.idExperienciaEducativa = idExperienciaEducativa;
+    }
+
+    public int getIdProfesor() {
+        return idProfesor;
+    }
+
+    public void setIdProfesor(int idProfesor) {
+        this.idProfesor = idProfesor;
     }
 
     public String getCodigoPeriodoEscolar() {
@@ -98,5 +98,5 @@ public class ProblematicaAcademica {
     public void setIdSolucionProblematicaAcademica(int idSolucionProblematicaAcademica) {
         this.idSolucionProblematicaAcademica = idSolucionProblematicaAcademica;
     }
-      
+
 }

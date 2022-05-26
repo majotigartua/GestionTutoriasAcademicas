@@ -67,5 +67,10 @@ public class Profesor {
     public void setCorreoElectronicoPersonal(String correoElectronicoPersonal) {
         this.correoElectronicoPersonal = correoElectronicoPersonal;
     }
+
+    @Override
+    public String toString() {
+        return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+    }
     
 }

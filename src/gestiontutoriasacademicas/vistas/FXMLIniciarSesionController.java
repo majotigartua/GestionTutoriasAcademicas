@@ -4,7 +4,6 @@
  * Fecha más reciente de modificación: 24/05/2022.
  * Descripción: Controlador de la pantalla de nicio de sesión.
  */
-
 package gestiontutoriasacademicas.vistas;
 
 import gestiontutoriasacademicas.modelo.dao.TutorAcademicoDAO;
@@ -27,18 +26,18 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class FXMLIniciarSesionController implements Initializable {
-    
+
     @FXML
     private TextField textFieldNombreUsuario;
     @FXML
     private Label labelCamposVacios;
     @FXML
     private PasswordField passwordField;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
+
     @FXML
     private void clicButtonIngresar(ActionEvent event) {
         labelCamposVacios.setText("");
@@ -50,7 +49,7 @@ public class FXMLIniciarSesionController implements Initializable {
             validarInicioSesion(nombreUsuario, contrasenia);
         }
     }
-    
+
     private void validarInicioSesion(String nombreUsuario, String contrasenia) {
         TutorAcademico tutorAcademico = TutorAcademicoDAO.iniciarSesion(nombreUsuario, contrasenia);
         switch (tutorAcademico.getCodigoRespuesta()) {
@@ -65,6 +64,7 @@ public class FXMLIniciarSesionController implements Initializable {
                 Utilidades.mostrarAlerta("AVISO",
                         "Los datos ingresados son inválidos. \n\nPor favor, compruebe la información ingresada e inténtelo nuevamente.\n",
                         Alert.AlertType.WARNING);
+                passwordField.setText("");
                 break;
             case Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS:
                 Utilidades.mostrarAlerta("ERROR",
@@ -73,7 +73,7 @@ public class FXMLIniciarSesionController implements Initializable {
                 break;
         }
     }
-    
+
     private void irMenuPrincipal(TutorAcademico tutorAcademico) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMenuPrincipal.fxml"));
         try {
@@ -89,5 +89,5 @@ public class FXMLIniciarSesionController implements Initializable {
             System.err.println("Error al cargar la pantalla de 'Menú principal'...");
         }
     }
-    
+
 }

@@ -1,3 +1,10 @@
+/**
+ * Nombre del programador: Sebastián Bello Trejo, Ulises Ramos Mexicano y María José Torres Igartua.
+ * Fecha de creación: 23/05/2022.
+ * Fecha más reciente de modificación: 23/05/2022.
+ * Descripción: Utilidades para la ejecución correcta del programa informático.
+ */
+
 package gestiontutoriasacademicas.util;
 
 import java.util.Optional;

@@ -30,23 +30,36 @@ public class FXMLMenuPrincipalController implements Initializable {
 
     @FXML
     private void clicButtonLlenarReporteTutoriasAcademicas(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLlenarReporteTutoriasAcademicas.fxml"));
+        try {
+            Parent root = loader.load();
+            FXMLLlenarReporteTutoriasAcademicasController llenarReporteTutoriasAcademicasController = loader.getController();
+            llenarReporteTutoriasAcademicasController.configurarEscena(tutorAcademico);
+            Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene pantallaLlenarReporteTutoriasAcademicas = new Scene(root);
+            escenarioPrincipal.setScene(pantallaLlenarReporteTutoriasAcademicas);
+            escenarioPrincipal.setTitle("Llenar Reporte de Tutorías Académicas");
+            escenarioPrincipal.show();
+        } catch (IOException ex) {
+            System.err.println("Error al cargar la pantalla de 'Llenar Reporte de Tutorías Académicas'...");
+        }
     }
 
     @FXML
     private void clicButtonEditarProblematicaAcademica(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicasAcademicas.fxml"));
-            try {
-                Parent root = loader.load();
-                FXMLProblematicasAcademicasController problematicasAcademicas = loader.getController();
-                problematicasAcademicas.configurarEscena(false, tutorAcademico);
-                Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene pantallaProblematicasAcademicas = new Scene(root);
-                escenarioPrincipal.setScene(pantallaProblematicasAcademicas);
-                escenarioPrincipal.setTitle("");
-                escenarioPrincipal.show();
-            } catch (IOException ex) {
-                System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
-            }
+        try {
+            Parent root = loader.load();
+            FXMLProblematicasAcademicasController problematicasAcademicasController = loader.getController();
+            problematicasAcademicasController.configurarEscena(false, tutorAcademico);
+            Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene pantallaProblematicasAcademicas = new Scene(root);
+            escenarioPrincipal.setScene(pantallaProblematicasAcademicas);
+            escenarioPrincipal.setTitle("");
+            escenarioPrincipal.show();
+        } catch (IOException ex) {
+            System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
+        }
     }
 
     @FXML
@@ -55,8 +68,8 @@ public class FXMLMenuPrincipalController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicasAcademicas.fxml"));
             try {
                 Parent root = loader.load();
-                FXMLProblematicasAcademicasController problematicasAcademicas = loader.getController();
-                problematicasAcademicas.configurarEscena(true, tutorAcademico);
+                FXMLProblematicasAcademicasController problematicasAcademicasController = loader.getController();
+                problematicasAcademicasController.configurarEscena(true, tutorAcademico);
                 Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene pantallaProblematicasAcademicas = new Scene(root);
                 escenarioPrincipal.setScene(pantallaProblematicasAcademicas);
