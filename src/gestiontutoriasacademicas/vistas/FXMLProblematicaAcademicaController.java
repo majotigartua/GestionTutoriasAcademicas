@@ -72,8 +72,9 @@ public class FXMLProblematicaAcademicaController implements Initializable {
         this.esRegistro = esRegistro;
         this.tutorAcademico = tutorAcademico;
         this.problematicaAcademicaPorModificar = problematicaAcademicaPorModificar;
-        if (!esRegistro) {
+        if (esRegistro) {
             buttonEliminar.setVisible(false);
+        } else {
             cargarProblematicaAcademicaPorModificar();
         }
     }
@@ -82,8 +83,8 @@ public class FXMLProblematicaAcademicaController implements Initializable {
     private void clicButtonAceptar(ActionEvent event) {
         if (esRegistro) {
             // TODO
-        } else{
-            
+        } else {
+
         }
     }
 

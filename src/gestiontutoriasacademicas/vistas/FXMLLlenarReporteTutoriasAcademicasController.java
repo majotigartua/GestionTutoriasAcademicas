@@ -55,11 +55,12 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
         try {
             Parent root = loader.load();
             FXMLProblematicaAcademicaController problematicaAcademicaController = loader.getController();
+            problematicaAcademicaController.configurarEscena(true, tutorAcademico, null);
             Stage escenarioProblematicaAcademica = new Stage();
             Scene pantallaProblematicaAcademica = new Scene(root);
             escenarioProblematicaAcademica.setScene(pantallaProblematicaAcademica);
             escenarioProblematicaAcademica.initModality(Modality.APPLICATION_MODAL);
-            escenarioProblematicaAcademica.setTitle("Llenar Reporte de Tutorías Académicas");
+            escenarioProblematicaAcademica.setTitle("Registrar problemática académica");
             escenarioProblematicaAcademica.showAndWait();
 
         } catch (IOException ex) {
