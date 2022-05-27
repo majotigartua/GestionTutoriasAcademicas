@@ -70,7 +70,7 @@ public class FXMLProblematicasAcademicasController implements Initializable {
     private void clicButtonAccion(ActionEvent event) {
         ProblematicaAcademica problematicaAcademicaSeleccionada = tableViewProblematicasAcademicas.getSelectionModel().getSelectedItem();
         if (esConsulta) {
-
+            // TODO
         } else {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicaAcademica.fxml"));
             try {

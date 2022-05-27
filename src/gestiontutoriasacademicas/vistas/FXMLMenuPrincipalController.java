@@ -1,3 +1,9 @@
+/**
+ * Nombre del programador: Sebastián Bello Trejo, Ulises Ramos Mexicano y María José Torres Igartua.
+ * Fecha de creación: 23/05/2022.
+ * Fecha más reciente de modificación: 27/05/2022.
+ * Descripción: Controlador de la pantalla de menú principal.
+ */
 package gestiontutoriasacademicas.vistas;
 
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;

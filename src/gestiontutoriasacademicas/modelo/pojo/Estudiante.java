@@ -1,3 +1,9 @@
+/**
+ * Nombre del programador: Sebastián Bello Trejo, Ulises Ramos Mexicano y María José Torres Igartua.
+ * Fecha de creación: 23/05/2022.
+ * Fecha más reciente de modificación: 27/05/2022.
+ * Descripción: .
+ */
 package gestiontutoriasacademicas.modelo.pojo;
 
 public class Estudiante {
@@ -12,13 +18,12 @@ public class Estudiante {
     public Estudiante() {
     }
 
-    public Estudiante(String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronicoInstitucional, String tutorAcademico) {
+    public Estudiante(String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronicoInstitucional) {
         this.matricula = matricula;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correoElectronicoInstitucional = correoElectronicoInstitucional;
-        this.tutorAcademico = tutorAcademico;
     }
 
     public String getMatricula() {

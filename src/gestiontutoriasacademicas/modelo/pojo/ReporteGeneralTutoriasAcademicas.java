@@ -1,3 +1,9 @@
+/**
+ * Nombre del programador: Sebastián Bello Trejo, Ulises Ramos Mexicano y María José Torres Igartua.
+ * Fecha de creación: 23/05/2022.
+ * Fecha más reciente de modificación: 23/05/2022.
+ * Descripción: .
+ */
 package gestiontutoriasacademicas.modelo.pojo;
 
 public class ReporteGeneralTutoriasAcademicas {
@@ -7,10 +13,6 @@ public class ReporteGeneralTutoriasAcademicas {
     private int totalEstudiantesEnRiesgo;
 
     public ReporteGeneralTutoriasAcademicas() {
-    }
-
-    public ReporteGeneralTutoriasAcademicas(int idReporteGeneralTutoriasAcademicas) {
-        this.idReporteGeneralTutoriasAcademicas = idReporteGeneralTutoriasAcademicas;
     }
 
     public int getIdReporteGeneralTutoriasAcademicas() {

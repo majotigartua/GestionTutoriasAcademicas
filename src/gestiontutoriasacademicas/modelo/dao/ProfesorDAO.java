@@ -2,7 +2,7 @@
  * Nombre del programador: Ulises Ramos Mexicano y María José Torres Igartua.
  * Fecha de creación: 26/05/2022.
  * Fecha más reciente de modificación: 26/05/2022.
- * Descripción: .
+ * Descripción: DAO de Profesor.
  */
 package gestiontutoriasacademicas.modelo.dao;
 

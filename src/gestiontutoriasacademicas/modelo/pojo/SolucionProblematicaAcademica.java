@@ -1,3 +1,9 @@
+/**
+ * Nombre del programador: Sebastián Bello Trejo, Ulises Ramos Mexicano y María José Torres Igartua.
+ * Fecha de creación: 23/05/2022.
+ * Fecha más reciente de modificación: 23/05/2022.
+ * Descripción: .
+ */
 package gestiontutoriasacademicas.modelo.pojo;
 
 import java.time.LocalDate;
@@ -12,8 +18,7 @@ public class SolucionProblematicaAcademica {
     public SolucionProblematicaAcademica() {
     }
 
-    public SolucionProblematicaAcademica(int idSolucionProblematicaAcademica, String titulo, String descripcion, LocalDate fecha) {
-        this.idSolucionProblematicaAcademica = idSolucionProblematicaAcademica;
+    public SolucionProblematicaAcademica(String titulo, String descripcion, LocalDate fecha) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;

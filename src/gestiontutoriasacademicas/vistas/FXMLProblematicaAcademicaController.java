@@ -133,7 +133,7 @@ public class FXMLProblematicaAcademicaController implements Initializable {
     }
     
     private void cargarExperienciasEducativasPorPeriodoEscolar() {
-        ArrayList<ExperienciaEducativa> consultaExperienciasEducativas = ExperienciaEducativaDAO.obtenerExperienciasEducativasEnPeriodoEscolarActual();
+        ArrayList<ExperienciaEducativa> consultaExperienciasEducativas = ExperienciaEducativaDAO.obtenerExperienciasEducativasPorPeriodoEscolar();
         experienciasEducativas = FXCollections.observableArrayList();
         experienciasEducativas.addAll(consultaExperienciasEducativas);
         comboBoxExperienciaEducativa.setItems(experienciasEducativas);

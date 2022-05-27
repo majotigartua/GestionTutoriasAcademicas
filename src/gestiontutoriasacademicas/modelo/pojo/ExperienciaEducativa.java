@@ -1,3 +1,9 @@
+/**
+ * Nombre del programador: Sebastián Bello Trejo, Ulises Ramos Mexicano y María José Torres Igartua.
+ * Fecha de creación: 23/05/2022.
+ * Fecha más reciente de modificación: 23/05/2022.
+ * Descripción: .
+ */
 package gestiontutoriasacademicas.modelo.pojo;
 
 public class ExperienciaEducativa {
@@ -9,8 +15,7 @@ public class ExperienciaEducativa {
     public ExperienciaEducativa() {
     }
 
-    public ExperienciaEducativa(int idExperienciaEducativa, String nombre, String descripcion) {
-        this.idExperienciaEducativa = idExperienciaEducativa;
+    public ExperienciaEducativa(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
