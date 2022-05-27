@@ -58,9 +58,7 @@ public class FXMLProblematicaAcademicaController implements Initializable {
     private NotificacionProblematicaAcademica interfaceProblematicaAcademica;
 
     private ObservableList<ExperienciaEducativa> experienciasEducativas;
-    private ExperienciaEducativa experienciaEducativaSeleccionada;
     private ObservableList<Profesor> profesores;
-    private Profesor profesorSeleccionado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,8 +102,8 @@ public class FXMLProblematicaAcademicaController implements Initializable {
         String titulo = textFieldTitulo.getText();
         int numEstudiantes = Integer.valueOf(textFieldNumEstudiantes.getText());
         String descripcion = textAreaDescripcion.getText();
-        experienciaEducativaSeleccionada = comboBoxExperienciaEducativa.getSelectionModel().getSelectedItem();
-        profesorSeleccionado = comboBoxProfesor.getSelectionModel().getSelectedItem();
+        ExperienciaEducativa experienciaEducativaSeleccionada = comboBoxExperienciaEducativa.getSelectionModel().getSelectedItem();
+        Profesor profesorSeleccionado = comboBoxProfesor.getSelectionModel().getSelectedItem();
         if (titulo.isEmpty() || textFieldNumEstudiantes.getText().isEmpty() || descripcion.isEmpty()
                 || experienciaEducativaSeleccionada == null || profesorSeleccionado == null) {
             labelCamposVacios.setText(" No se puede dejar ningún campo vacío.");
