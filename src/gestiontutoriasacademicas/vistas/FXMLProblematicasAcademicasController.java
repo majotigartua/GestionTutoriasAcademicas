@@ -73,20 +73,7 @@ public class FXMLProblematicasAcademicasController implements Initializable, Not
         if (esConsulta) {
             // TODO
         } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicaAcademica.fxml"));
-            try {
-                Parent root = loader.load();
-                FXMLProblematicaAcademicaController problematicaAcademicaController = loader.getController();
-                problematicaAcademicaController.configurarEscena(esConsulta, this, problematicaAcademicaSeleccionada);
-                Stage escenarioProblematicaAcademica = new Stage();
-                Scene pantallaProblematicasAcademicas = new Scene(root);
-                escenarioProblematicaAcademica.setScene(pantallaProblematicasAcademicas);
-                escenarioProblematicaAcademica.setTitle("Modificar problemática académica");
-                escenarioProblematicaAcademica.initModality(Modality.APPLICATION_MODAL);
-                escenarioProblematicaAcademica.showAndWait();
-            } catch (IOException ex) {
-                System.err.println("Error al cargar la pantalla de 'Problemática académica'...");
-            }
+            irModificarProblematicaAcademica(problematicaAcademicaSeleccionada);
         }
     }
 
@@ -108,6 +95,23 @@ public class FXMLProblematicasAcademicasController implements Initializable, Not
             tableViewProblematicasAcademicas.setItems(problematicasAcademicas);
         } else {
             irMenuPrincipal();
+        }
+    }
+
+    private void irModificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicaAcademica.fxml"));
+        try {
+            Parent root = loader.load();
+            FXMLProblematicaAcademicaController problematicaAcademicaController = loader.getController();
+            problematicaAcademicaController.configurarEscena(false, this, problematicaAcademica);
+            Stage escenarioProblematicaAcademica = new Stage();
+            Scene pantallaProblematicaAcademica = new Scene(root);
+            escenarioProblematicaAcademica.setScene(pantallaProblematicaAcademica);
+            escenarioProblematicaAcademica.initModality(Modality.APPLICATION_MODAL);
+            escenarioProblematicaAcademica.setTitle("Modificar problemática académica");
+            escenarioProblematicaAcademica.showAndWait();
+        } catch (IOException ex) {
+            System.err.println("Error al cargar la pantalla de 'Modificar problemática académica'...");
         }
     }
 

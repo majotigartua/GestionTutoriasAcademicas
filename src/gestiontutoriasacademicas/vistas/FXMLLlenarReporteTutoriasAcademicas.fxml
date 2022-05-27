@@ -87,7 +87,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="348.0" layoutY="524.0" mnemonicParsing="false" onAction="#clicButtonRegistrarComentarioGeneral" prefHeight="52.0" prefWidth="167.0" text="Registrar comentario general" textAlignment="CENTER" wrapText="true">
+      <Button layoutX="348.0" layoutY="524.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="167.0" text="Registrar comentario general" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="13.0" />
          </font>

@@ -17,7 +17,6 @@ import gestiontutoriasacademicas.util.Constantes;
 import gestiontutoriasacademicas.util.Utilidades;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;

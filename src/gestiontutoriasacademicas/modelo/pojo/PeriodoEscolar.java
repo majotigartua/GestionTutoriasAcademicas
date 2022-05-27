@@ -14,6 +14,7 @@ public class PeriodoEscolar {
     private String codigo;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private int codigoRespuesta;
 
     public PeriodoEscolar() {
     }
@@ -46,6 +47,14 @@ public class PeriodoEscolar {
 
     public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public int getCodigoRespuesta() {
+        return codigoRespuesta;
+    }
+
+    public void setCodigoRespuesta(int codigoRespuesta) {
+        this.codigoRespuesta = codigoRespuesta;
     }
        
 }

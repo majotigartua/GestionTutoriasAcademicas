@@ -71,12 +71,8 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
             escenarioProblematicaAcademica.setTitle("Registrar problemática académica");
             escenarioProblematicaAcademica.showAndWait();
         } catch (IOException ex) {
-            System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
+            System.err.println("Error al cargar la pantalla de 'Registrar problemática académica'...");
         }
-    }
-
-    @FXML
-    private void clicButtonRegistrarComentarioGeneral(ActionEvent event) {
     }
 
     private void irMenuPrincipal(){

@@ -36,19 +36,7 @@ public class FXMLMenuPrincipalController implements Initializable {
 
     @FXML
     private void clicButtonLlenarReporteTutoriasAcademicas(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLlenarReporteTutoriasAcademicas.fxml"));
-        try {
-            Parent root = loader.load();
-            FXMLLlenarReporteTutoriasAcademicasController llenarReporteTutoriasAcademicasController = loader.getController();
-            llenarReporteTutoriasAcademicasController.configurarEscena(tutorAcademico);
-            Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene pantallaLlenarReporteTutoriasAcademicas = new Scene(root);
-            escenarioPrincipal.setScene(pantallaLlenarReporteTutoriasAcademicas);
-            escenarioPrincipal.setTitle("Llenar Reporte de Tutorías Académicas");
-            escenarioPrincipal.show();
-        } catch (IOException ex) {
-            System.err.println("Error al cargar la pantalla de 'Llenar Reporte de Tutorías Académicas'...");
-        }
+        irLlenarReporteTutoriasAcademicas(event);
     }
 
     @FXML
@@ -91,6 +79,22 @@ public class FXMLMenuPrincipalController implements Initializable {
         }
     }
 
+    private void irLlenarReporteTutoriasAcademicas(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLlenarReporteTutoriasAcademicas.fxml"));
+        try {
+            Parent root = loader.load();
+            FXMLLlenarReporteTutoriasAcademicasController llenarReporteTutoriasAcademicasController = loader.getController();
+            llenarReporteTutoriasAcademicasController.configurarEscena(tutorAcademico);
+            Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene pantallaLlenarReporteTutoriasAcademicas = new Scene(root);
+            escenarioPrincipal.setScene(pantallaLlenarReporteTutoriasAcademicas);
+            escenarioPrincipal.setTitle("Llenar Reporte de Tutorías Académicas");
+            escenarioPrincipal.show();
+        } catch (IOException ex) {
+            System.err.println("Error al cargar la pantalla de 'Llenar Reporte de Tutorías Académicas'...");
+        }
+    }
+
     private void irProblematicasAcademicas(ActionEvent event, boolean esConsulta) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicasAcademicas.fxml"));
         try {
@@ -106,5 +110,5 @@ public class FXMLMenuPrincipalController implements Initializable {
             System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
         }
     }
-    
+
 }
