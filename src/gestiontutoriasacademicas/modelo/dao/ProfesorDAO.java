@@ -24,9 +24,10 @@ public class ProfesorDAO {
         if (conexionBaseDatos != null) {
             String consulta = "SELECT profesor.*\n"
                     + "FROM profesor\n"
-                    + "INNER JOIN ofertaAcademica \n"
+                    + "INNER JOIN ofertaAcademica\n"
                     + "ON profesor.idProfesor = ofertaAcademica.idProfesor\n"
-                    + "WHERE idExperienciaEducativa = ?";
+                    + "WHERE idExperienciaEducativa = ?\n"
+                    + "ORDER BY (profesor.nombre) ASC;";
             try {
                 PreparedStatement configurarConsulta = conexionBaseDatos.prepareStatement(consulta);
                 configurarConsulta.setInt(1, idExperienciaEducativa);

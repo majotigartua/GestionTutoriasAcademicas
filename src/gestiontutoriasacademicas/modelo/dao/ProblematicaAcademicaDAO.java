@@ -8,6 +8,7 @@ package gestiontutoriasacademicas.modelo.dao;
 
 import gestiontutoriasacademicas.modelo.ConexionBaseDatos;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
+import gestiontutoriasacademicas.util.Constantes;
 import gestiontutoriasacademicas.util.Utilidades;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public class ProblematicaAcademicaDAO {
         Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
         if (conexionBaseDatos != null) {
             try {
-                String consulta = "SELECT problematicaAcademica.titulo, problematicaAcademica.descripcion, problematicaAcademica.numEstudiantes,\n"
+                String consulta = "SELECT problematicaAcademica.*,\n"
                         + "ofertaAcademica.idExperienciaEducativa, ofertaAcademica.idProfesor \n"
                         + "FROM problematicaAcademica\n"
                         + "INNER JOIN ofertaAcademica\n"
@@ -32,6 +33,7 @@ public class ProblematicaAcademicaDAO {
                 ResultSet resultado = configurarConsulta.executeQuery();
                 while (resultado.next()) {
                     ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
+                    problematicaAcademica.setIdProblematicaAcademica(resultado.getInt("idProblematicaAcademica"));
                     problematicaAcademica.setTitulo(resultado.getString("titulo"));
                     problematicaAcademica.setDescripcion(resultado.getString("descripcion"));
                     problematicaAcademica.setNumEstudiantes(resultado.getInt("numEstudiantes"));
@@ -58,7 +60,7 @@ public class ProblematicaAcademicaDAO {
         Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
         if (conexionBaseDatos != null) {
             try {
-                String consulta = "SELECT problematicaAcademica.titulo, problematicaAcademica.descripcion, problematicaAcademica.numEstudiantes,\n"
+                String consulta = "SELECT problematicaAcademica.*,\n"
                         + "ofertaAcademica.idExperienciaEducativa, ofertaAcademica.idProfesor \n"
                         + "FROM problematicaAcademica\n"
                         + "INNER JOIN ofertaAcademica\n"
@@ -74,6 +76,7 @@ public class ProblematicaAcademicaDAO {
                 ResultSet resultado = configurarConsulta.executeQuery();
                 while (resultado.next()) {
                     ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
+                    problematicaAcademica.setIdProblematicaAcademica(resultado.getInt("idProblematicaAcademica"));
                     problematicaAcademica.setTitulo(resultado.getString("titulo"));
                     problematicaAcademica.setDescripcion(resultado.getString("descripcion"));
                     problematicaAcademica.setNumEstudiantes(resultado.getInt("numEstudiantes"));
@@ -93,6 +96,66 @@ public class ProblematicaAcademicaDAO {
                     Alert.AlertType.ERROR);
         }
         return problematicasAcademicas;
+    }
+
+//  public static int registrarProblematicaAcademica(ProblematicaAcademica problematicaAcademica){}
+    
+    public static int modificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
+        int codigoRespuesta;
+        Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
+        if (conexionBaseDatos != null) {
+            String consulta = "SELECT idOfertaAcademica\n"
+                    + "FROM ofertaAcademica\n"
+                    + "WHERE idExperienciaEducativa = ? AND idProfesor = ?";
+            try {
+                PreparedStatement configurarConsulta = conexionBaseDatos.prepareStatement(consulta);
+                configurarConsulta.setInt(1, problematicaAcademica.getIdExperienciaEducativa());
+                configurarConsulta.setInt(2, problematicaAcademica.getIdProfesor());
+                ResultSet resultado = configurarConsulta.executeQuery();
+                if (resultado.next()) {
+                    int idOfertaAcademica = resultado.getInt("idOfertaAcademica");
+                    String sentencia = "UPDATE problematicaAcademica\n"
+                            + "SET titulo = ?, descripcion = ?, numEstudiantes = ?, idOfertaAcademica = ?\n"
+                            + "WHERE idProblematicaAcademica = ?";
+                    PreparedStatement configurarSentencia = conexionBaseDatos.prepareStatement(sentencia);
+                    configurarSentencia.setString(1, problematicaAcademica.getTitulo());
+                    configurarSentencia.setString(2, problematicaAcademica.getDescripcion());
+                    configurarSentencia.setInt(3, problematicaAcademica.getNumEstudiantes());
+                    configurarSentencia.setInt(4, idOfertaAcademica);
+                    configurarSentencia.setInt(5, problematicaAcademica.getIdProblematicaAcademica());
+                    int filasAfectadas = configurarSentencia.executeUpdate();
+                    codigoRespuesta = (filasAfectadas == 1) ? Constantes.CODIGO_OPERACION_CORRECTA : Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
+                } else {
+                    codigoRespuesta = Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
+                }
+                conexionBaseDatos.close();
+            } catch (SQLException ex) {
+                codigoRespuesta = Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
+            }
+        } else {
+            codigoRespuesta = Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
+        }
+        return codigoRespuesta;
+    }
+
+    public static int eliminarProblematicaAcademica(int idProblematicaAcademica) {
+        int codigoRespuesta;
+        Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
+        if (conexionBaseDatos != null) {
+            String sentencia = "DELETE FROM problematicaAcademica\n"
+                    + "WHERE idProblematicaAcademica = ?";
+            try {
+                PreparedStatement configurarSentencia = conexionBaseDatos.prepareStatement(sentencia);
+                configurarSentencia.setInt(1, idProblematicaAcademica);
+                int filasAfectadas = configurarSentencia.executeUpdate();
+                codigoRespuesta = (filasAfectadas == 1) ? Constantes.CODIGO_OPERACION_CORRECTA : Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
+            } catch (SQLException ex) {
+                codigoRespuesta = Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
+            }
+        } else {
+            codigoRespuesta = Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
+        }
+        return codigoRespuesta;
     }
     
 }

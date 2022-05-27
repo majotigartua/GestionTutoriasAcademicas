@@ -21,14 +21,12 @@ public class TutorAcademicoDAO {
         Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
         if (conexionBaseDatos != null) {
             try {
-                String consulta = "SELECT nombreUsuario, nombre, apellidoPaterno, apellidoMaterno, idRol,\n"
-                        + "(SELECT COUNT(*) FROM estudiante WHERE nombreUsuario = ?) AS numEstudiantes\n"
-                        + "FROM tutorAcademico \n"
+                String consulta = "SELECT nombreUsuario, nombre, apellidoPaterno, apellidoMaterno, idRol\n"
+                        + "FROM tutorAcademico\n"
                         + "WHERE nombreUsuario = ? AND contrasenia = ?";
                 PreparedStatement configurarConsulta = conexionBaseDatos.prepareStatement(consulta);
                 configurarConsulta.setString(1, nombreUsuario);
-                configurarConsulta.setString(2, nombreUsuario);
-                configurarConsulta.setString(3, contrasenia);
+                configurarConsulta.setString(2, contrasenia);;
                 ResultSet resultado = configurarConsulta.executeQuery();
                 if (resultado.next()) {
                     tutorAcademico.setNombreUsuario(resultado.getString("nombreUsuario"));
@@ -36,7 +34,6 @@ public class TutorAcademicoDAO {
                     tutorAcademico.setApellidoPaterno(resultado.getString("apellidoPaterno"));
                     tutorAcademico.setApellidoMaterno(resultado.getString("apellidoMaterno"));
                     tutorAcademico.setIdRol(resultado.getInt("idRol"));
-                    tutorAcademico.setNumEstudiantes(resultado.getInt("numEstudiantes"));
                     tutorAcademico.setCodigoRespuesta(Constantes.CODIGO_INICIO_SESION_CORRECTO);
                 } else {
                     tutorAcademico.setCodigoRespuesta(Constantes.CODIGO_CREDENCIALES_INCORRECTAS);

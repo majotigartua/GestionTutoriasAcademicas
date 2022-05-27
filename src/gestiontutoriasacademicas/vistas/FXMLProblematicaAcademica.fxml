@@ -59,7 +59,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Label fx:id="labelCamposVacios" layoutX="38.0" layoutY="63.0" style="-fx-background-color: #F8AD40;">
+      <Label fx:id="labelCamposVacios" layoutX="38.0" layoutY="66.0" style="-fx-background-color: #FFB140;">
          <font>
             <Font size="13.0" />
          </font>

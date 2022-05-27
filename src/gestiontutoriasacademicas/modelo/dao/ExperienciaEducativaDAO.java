@@ -23,13 +23,14 @@ public class ExperienciaEducativaDAO {
         Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
         if (conexionBaseDatos != null) {
             try {
-                String consulta = "SELECT experienciaEducativa.*\n"
+                String consulta = "SELECT DISTINCT experienciaEducativa.*\n"
                         + "FROM experienciaEducativa\n"
                         + "INNER JOIN ofertaAcademica\n"
                         + "ON experienciaEducativa.idExperienciaEducativa = ofertaAcademica.idExperienciaEducativa\n"
                         + "INNER JOIN periodoEscolar\n"
                         + "ON ofertaAcademica.codigoPeriodoEscolar = periodoEscolar.codigoPeriodoEscolar\n"
-                        + "WHERE (NOW() BETWEEN periodoEscolar.fechaInicio AND periodoEscolar.fechaFin)";
+                        + "WHERE (NOW() BETWEEN periodoEscolar.fechaInicio AND periodoEscolar.fechaFin)\n"
+                        + "ORDER BY (experienciaEducativa.nombre) ASC;";
                 PreparedStatement configurarConsulta = conexionBaseDatos.prepareStatement(consulta);
                 ResultSet resultado = configurarConsulta.executeQuery();
                 while (resultado.next()) {
@@ -51,5 +52,5 @@ public class ExperienciaEducativaDAO {
         }
         return experienciasEducativas;
     }
-    
+
 }

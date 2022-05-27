@@ -1,7 +1,7 @@
 /**
  * Nombre del programador: Sebastián Bello Trejo, Ulises Ramos Mexicano y María José Torres Igartua.
  * Fecha de creación: 23/05/2022.
- * Fecha más reciente de modificación: 24/05/2022.
+ * Fecha más reciente de modificación: 27/05/2022.
  * Descripción: Controlador de la pantalla de nicio de sesión.
  */
 package gestiontutoriasacademicas.vistas;
@@ -46,11 +46,11 @@ public class FXMLIniciarSesionController implements Initializable {
         if (nombreUsuario.isEmpty() || contrasenia.isEmpty()) {
             labelCamposVacios.setText("No se puede dejar ningún campo vacío.");
         } else {
-            validarInicioSesion(nombreUsuario, contrasenia);
+            validarIniciarSesion(nombreUsuario, contrasenia);
         }
     }
 
-    private void validarInicioSesion(String nombreUsuario, String contrasenia) {
+    private void validarIniciarSesion(String nombreUsuario, String contrasenia) {
         TutorAcademico tutorAcademico = TutorAcademicoDAO.iniciarSesion(nombreUsuario, contrasenia);
         switch (tutorAcademico.getCodigoRespuesta()) {
             case Constantes.CODIGO_INICIO_SESION_CORRECTO:

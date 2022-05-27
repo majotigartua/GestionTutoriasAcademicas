@@ -6,6 +6,7 @@
  */
 package gestiontutoriasacademicas.vistas;
 
+import gestiontutoriasacademicas.interfaces.NotificacionProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.dao.ProblematicaAcademicaDAO;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;
@@ -30,7 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class FXMLProblematicasAcademicasController implements Initializable {
+public class FXMLProblematicasAcademicasController implements Initializable, NotificacionProblematicaAcademica {
 
     @FXML
     private Label labelInstruccion;
@@ -76,7 +77,7 @@ public class FXMLProblematicasAcademicasController implements Initializable {
             try {
                 Parent root = loader.load();
                 FXMLProblematicaAcademicaController problematicaAcademicaController = loader.getController();
-                problematicaAcademicaController.configurarEscena(esConsulta, tutorAcademico, problematicaAcademicaSeleccionada);
+                problematicaAcademicaController.configurarEscena(esConsulta, this, problematicaAcademicaSeleccionada);
                 Stage escenarioProblematicaAcademica = new Stage();
                 Scene pantallaProblematicasAcademicas = new Scene(root);
                 escenarioProblematicaAcademica.setScene(pantallaProblematicasAcademicas);
@@ -123,6 +124,11 @@ public class FXMLProblematicasAcademicasController implements Initializable {
         } catch (IOException ex) {
             System.err.println("Error al cargar la pantalla de 'Menú principal'...");
         }
+    }
+
+    @Override
+    public void notificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
+        cargarProblematicasAcademicas();
     }
 
 }

@@ -6,6 +6,7 @@
  */
 package gestiontutoriasacademicas.vistas;
 
+import gestiontutoriasacademicas.interfaces.NotificacionProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable {
+public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable, NotificacionProblematicaAcademica {
 
     @FXML
     private TextField textFieldPeriodoEscolar;
@@ -44,6 +45,7 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
 
     public void configurarEscena(TutorAcademico tutorAcademico) {
         this.tutorAcademico = tutorAcademico;
+        problematicasAcademicas = new ArrayList<>();
     }
 
     @FXML
@@ -61,7 +63,7 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
         try {
             Parent root = loader.load();
             FXMLProblematicaAcademicaController problematicaAcademicaController = loader.getController();
-            problematicaAcademicaController.configurarEscena(true, tutorAcademico, null);
+            problematicaAcademicaController.configurarEscena(true, this, null);
             Stage escenarioProblematicaAcademica = new Stage();
             Scene pantallaProblematicaAcademica = new Scene(root);
             escenarioProblematicaAcademica.setScene(pantallaProblematicaAcademica);
@@ -90,6 +92,11 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
         } catch (IOException ex) {
             System.err.println("Error al cargar la pantalla de menú principal...");
         }
+    }
+
+    @Override
+    public void notificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
+        problematicasAcademicas.add(problematicaAcademica);
     }
 
 }
