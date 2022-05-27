@@ -15,16 +15,13 @@ public class ProblematicaAcademica {
     public ProblematicaAcademica() {
     }
 
-    public ProblematicaAcademica(int idProblematicaAcademica, String titulo, String descripcion, int numEstudiantes,
-            int idExperienciaEducativa, int idProfesor, String codigoPeriodoEscolar, int idReporteTutoriasAcademicas) {
-        this.idProblematicaAcademica = idProblematicaAcademica;
+    public ProblematicaAcademica(String titulo, String descripcion, int numEstudiantes,
+            int idExperienciaEducativa, int idProfesor) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.numEstudiantes = numEstudiantes;
-        this.idProfesor = idProfesor;
         this.idExperienciaEducativa = idExperienciaEducativa;
-        this.codigoPeriodoEscolar = codigoPeriodoEscolar;
-        this.idReporteTutoriasAcademicas = idReporteTutoriasAcademicas;
+        this.idProfesor = idProfesor;
     }
 
     public int getIdProblematicaAcademica() {
@@ -99,4 +96,9 @@ public class ProblematicaAcademica {
         this.idSolucionProblematicaAcademica = idSolucionProblematicaAcademica;
     }
 
+    @Override
+    public String toString() {
+        return titulo;
+    }
+ 
 }

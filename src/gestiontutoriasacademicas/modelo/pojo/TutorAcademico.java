@@ -11,6 +11,7 @@ public class TutorAcademico {
     private String correoElectronicoPersonal;
     private int idTipoContratacion;
     private int idRol;
+    private int numEstudiantes;
     private int codigoRespuesta;
 
     public TutorAcademico() {
@@ -96,6 +97,14 @@ public class TutorAcademico {
 
     public void setIdRol(int idRol) {
         this.idRol = idRol;
+    }
+
+    public int getNumEstudiantes() {
+        return numEstudiantes;
+    }
+
+    public void setNumEstudiantes(int numEstudiantes) {
+        this.numEstudiantes = numEstudiantes;
     }
 
     public int getCodigoRespuesta() {

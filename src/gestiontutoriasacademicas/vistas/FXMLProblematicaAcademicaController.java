@@ -12,7 +12,7 @@ import gestiontutoriasacademicas.modelo.pojo.ExperienciaEducativa;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.Profesor;
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;
-import java.io.IOException;
+import gestiontutoriasacademicas.util.Utilidades;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -22,19 +22,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class FXMLProblematicaAcademicaController implements Initializable {
 
+    @FXML
+    private Label labelCamposVacios;
     @FXML
     private TextField textFieldTitulo;
     @FXML
@@ -49,13 +50,24 @@ public class FXMLProblematicaAcademicaController implements Initializable {
     private Button buttonEliminar;
 
     private boolean esRegistro;
-    private static TutorAcademico tutorAcademico;
+    private TutorAcademico tutorAcademico;
     private ProblematicaAcademica problematicaAcademicaPorModificar;
     private ObservableList<ExperienciaEducativa> experienciasEducativas;
+    private ExperienciaEducativa experienciaEducativaSeleccionada;
     private ObservableList<Profesor> profesores;
+    private Profesor profesorSeleccionado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        textFieldNumEstudiantes.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                    String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    textFieldNumEstudiantes.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         textAreaDescripcion.setWrapText(true);
         cargarExperienciasEducativasPorPeriodoEscolar();
         comboBoxExperienciaEducativa.valueProperty().addListener(new ChangeListener<ExperienciaEducativa>() {
@@ -81,39 +93,45 @@ public class FXMLProblematicaAcademicaController implements Initializable {
 
     @FXML
     private void clicButtonAceptar(ActionEvent event) {
-        if (esRegistro) {
-            // TODO
+        labelCamposVacios.setText("");
+        String titulo = textFieldTitulo.getText();
+        int numEstudiantes = Integer.valueOf(textFieldNumEstudiantes.getText());
+        String descripcion = textAreaDescripcion.getText();
+        experienciaEducativaSeleccionada = comboBoxExperienciaEducativa.getSelectionModel().getSelectedItem();
+        profesorSeleccionado = comboBoxProfesor.getSelectionModel().getSelectedItem();
+        if (titulo.isEmpty() || textFieldNumEstudiantes.getText().isEmpty() || descripcion.isEmpty()
+                || experienciaEducativaSeleccionada == null || profesorSeleccionado == null) {
+            labelCamposVacios.setText("No se puede dejar ningún campo vacío.");
+        } else if (numEstudiantes <= 0 || numEstudiantes > tutorAcademico.getNumEstudiantes()) {
+            Utilidades.mostrarAlerta("AVISO",
+                    "Los datos ingresados son inválidos. \n\nPor favor, compruebe la información ingresada e inténtelo nuevamente.\n",
+                    Alert.AlertType.WARNING);
         } else {
-
+            ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica(titulo, descripcion, numEstudiantes,
+            experienciaEducativaSeleccionada.getIdExperienciaEducativa(), profesorSeleccionado.getIdProfesor());
+            if (esRegistro) {
+                // TODO
+            } else {
+                modificarProblematicaAcademica(problematicaAcademica);
+            }
         }
     }
 
     @FXML
     private void clicButtonEliminar(ActionEvent event) {
+        // TODO
     }
 
     @FXML
     private void clicButtonCancelar(ActionEvent event) {
-        if (esRegistro) {
-            Stage escenario = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
-            escenario.close();
-        } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLProblematicasAcademicas.fxml"));
-            try {
-                Parent root = loader.load();
-                FXMLProblematicasAcademicasController problematicasAcademicasController = loader.getController();
-                problematicasAcademicasController.configurarEscena(false, tutorAcademico);
-                Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene pantallaProblematicasAcademicas = new Scene(root);
-                escenarioPrincipal.setScene(pantallaProblematicasAcademicas);
-                escenarioPrincipal.setTitle("");
-                escenarioPrincipal.show();
-            } catch (IOException ex) {
-                System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
-            }
-        }
+        Stage escenario = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
+        escenario.close();
     }
 
+    private void modificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica){
+        // TODO
+    }
+    
     private void cargarExperienciasEducativasPorPeriodoEscolar() {
         ArrayList<ExperienciaEducativa> consultaExperienciasEducativas = ExperienciaEducativaDAO.obtenerExperienciasEducativasEnPeriodoEscolarActual();
         experienciasEducativas = FXCollections.observableArrayList();

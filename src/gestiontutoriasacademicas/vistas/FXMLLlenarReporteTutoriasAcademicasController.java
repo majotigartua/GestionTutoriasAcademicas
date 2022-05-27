@@ -1,6 +1,5 @@
 package gestiontutoriasacademicas.vistas;
 
-import gestiontutoriasacademicas.interfaces.InterfaceProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.TutorAcademico;
 import java.io.IOException;
@@ -17,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable, InterfaceProblematicaAcademica {
+public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable {
 
     @FXML
     private TextField textFieldPeriodoEscolar;
@@ -30,7 +29,7 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
     @FXML
     private TextField textFieldNumEstudiantesEnRiesgo;
 
-    private static TutorAcademico tutorAcademico;
+    private TutorAcademico tutorAcademico;
     private ArrayList<ProblematicaAcademica> problematicasAcademicas;
 
     @Override
@@ -63,7 +62,6 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
             escenarioProblematicaAcademica.initModality(Modality.APPLICATION_MODAL);
             escenarioProblematicaAcademica.setTitle("Registrar problemática académica");
             escenarioProblematicaAcademica.showAndWait();
-
         } catch (IOException ex) {
             System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
         }
@@ -86,11 +84,6 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
         } catch (IOException ex) {
             System.err.println("Error al cargar la pantalla de menú principal...");
         }
-    }
-
-    @Override
-    public void notificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
-        // TODO
     }
 
 }

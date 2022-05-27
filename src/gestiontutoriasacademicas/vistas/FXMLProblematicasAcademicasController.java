@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class FXMLProblematicasAcademicasController implements Initializable {
@@ -76,14 +76,15 @@ public class FXMLProblematicasAcademicasController implements Initializable {
             try {
                 Parent root = loader.load();
                 FXMLProblematicaAcademicaController problematicaAcademicaController = loader.getController();
-                problematicaAcademicaController.configurarEscena(false, tutorAcademico, problematicaAcademicaSeleccionada);
-                Stage escenarioPrincipal = (Stage) (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene pantallaProblematicaAcademica = new Scene(root);
-                escenarioPrincipal.setScene(pantallaProblematicaAcademica);
-                escenarioPrincipal.setTitle("Modificar problemática académica");
-                escenarioPrincipal.show();
+                problematicaAcademicaController.configurarEscena(esConsulta, tutorAcademico, problematicaAcademicaSeleccionada);
+                Stage escenarioProblematicaAcademica = new Stage();
+                Scene pantallaProblematicasAcademicas = new Scene(root);
+                escenarioProblematicaAcademica.setScene(pantallaProblematicasAcademicas);
+                escenarioProblematicaAcademica.setTitle("Modificar problemática académica");
+                escenarioProblematicaAcademica.initModality(Modality.APPLICATION_MODAL);
+                escenarioProblematicaAcademica.showAndWait();
             } catch (IOException ex) {
-                System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
+                System.err.println("Error al cargar la pantalla de 'Problemática académica'...");
             }
         }
     }
@@ -101,6 +102,7 @@ public class FXMLProblematicasAcademicasController implements Initializable {
             consultaProblematicasAcademicas = ProblematicaAcademicaDAO.obtenerProblematicaAcademicasPorTutorAcademico(tutorAcademico.getNombreUsuario());
         }
         if (consultaProblematicasAcademicas != null) {
+            problematicasAcademicas.clear();
             problematicasAcademicas.addAll(consultaProblematicasAcademicas);
             tableViewProblematicasAcademicas.setItems(problematicasAcademicas);
         } else {
@@ -119,8 +121,8 @@ public class FXMLProblematicasAcademicasController implements Initializable {
             escenario.setTitle("Menú principal");
             escenario.show();
         } catch (IOException ex) {
-            System.err.println("Error al cargar la pantalla de menú principal...");
+            System.err.println("Error al cargar la pantalla de 'Menú principal'...");
         }
     }
-    
+
 }
