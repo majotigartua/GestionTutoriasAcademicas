@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiontutoriasacademicas.vistas.FXMLLlenarReporteTutoriasAcademicasController">
+   <children>
+      <Label layoutX="79.0" layoutY="42.0" text="Reporte de Tutorías Académicas">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="69.0" text="Ingeniería de Software">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="503.0" layoutY="44.0" text="Facultad de Estadística e Informática">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="581.0" layoutY="70.0" text="Región Xalapa">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="120.0" text="Periodo Escolar:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="164.0" text="Fecha:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="515.0" layoutY="164.0" text="Número de sesión:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldPeriodoEscolar" disable="true" layoutX="170.0" layoutY="117.0" prefHeight="25.0" prefWidth="237.0" />
+      <TextField fx:id="textFieldFecha" disable="true" layoutX="134.0" layoutY="161.0" prefHeight="25.0" prefWidth="273.0" />
+      <TextField fx:id="textFieldNumSesion" alignment="CENTER" disable="true" layoutX="643.0" layoutY="161.0" prefHeight="25.0" prefWidth="86.0" />
+      <Label layoutX="52.0" layoutY="219.0" text="Seleccione a los estudiantes asistentes a la tutoría académica y, de ser el caso, indique si están en riesgo. *">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableViewEstudiantes" layoutX="52.0" layoutY="259.0" prefHeight="243.0" prefWidth="488.0">
+        <columns>
+          <TableColumn fx:id="columnMatricula" prefWidth="99.0" style="-fx-alignment: CENTER-LEFT;" text="Matrícula" />
+          <TableColumn fx:id="columnNombreCompleto" prefWidth="246.0" style="-fx-alignment: CENTER-LEFT;" text="Nombre completo" />
+            <TableColumn fx:id="columnEsAsistente" prefWidth="69.0" style="-fx-alignment: CENTER;" text="Asistió" />
+            <TableColumn fx:id="columnEnRiesgo" prefWidth="73.0" style="-fx-alignment: CENTER;" text="En riesgo" />
+        </columns>
+      </TableView>
+      <Label layoutX="570.0" layoutY="319.0" prefHeight="19.0" prefWidth="206.0" text="Número de estudiantes asistentes:" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="562.0" layoutY="394.0" text="Número de estudiantes en riesgo:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldNumEstudiantesAsistentes" alignment="CENTER" disable="true" layoutX="645.0" layoutY="356.0" prefHeight="25.0" prefWidth="46.0" />
+      <TextField fx:id="textFieldNumEstudiantesEnRiesgo" alignment="CENTER" disable="true" layoutX="645.0" layoutY="427.0" prefHeight="25.0" prefWidth="46.0" />
+      <Button layoutX="668.0" layoutY="535.0" mnemonicParsing="false" onAction="#clicButtonCancelar" prefHeight="29.0" prefWidth="86.0" text="Cancelar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonAceptar" layoutX="52.0" layoutY="535.0" mnemonicParsing="false" onAction="#clicButtonAceptar" prefHeight="29.0" prefWidth="86.0" text="Aceptar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonRegistrarProblematicaAcademica" layoutX="187.0" layoutY="524.0" mnemonicParsing="false" onAction="#clicButtonRegistrarProblematicaAcademica" prefHeight="52.0" prefWidth="167.0" text="Registrar problemática académica" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonRegistrarComentarioGeneral" layoutX="373.0" layoutY="524.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="167.0" text="Registrar comentario general" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
