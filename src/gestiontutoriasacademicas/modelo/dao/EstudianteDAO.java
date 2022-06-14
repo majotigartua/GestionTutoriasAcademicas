@@ -8,6 +8,7 @@ package gestiontutoriasacademicas.modelo.dao;
 
 import gestiontutoriasacademicas.modelo.ConexionBaseDatos;
 import gestiontutoriasacademicas.modelo.pojo.Estudiante;
+import gestiontutoriasacademicas.modelo.pojo.ReporteTutoriasAcademicas;
 import gestiontutoriasacademicas.util.Constantes;
 import gestiontutoriasacademicas.util.Utilidades;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 
 public class EstudianteDAO {
 
@@ -87,5 +89,50 @@ public class EstudianteDAO {
         }
         return codigoRespuesta;
     }
-
+    
+    public static ArrayList<Estudiante> obtenerEstudiantesPorReporteTutoriasAcademicas(ReporteTutoriasAcademicas reporteTutoriasAcademicas) {
+        ArrayList<Estudiante> estudiantes = new ArrayList<>();
+        Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
+        if (conexionBaseDatos != null) {
+            String consulta = "SELECT estudiantereportetutoriasacademicas.matricula, estudiante.nombre, estudiante.apellidoPaterno, estudiante.apellidoMaterno, "
+                            + "estudiantereportetutoriasacademicas.esAsistente, estudiantereportetutoriasacademicas.enRiesgo \n" +
+                            "FROM estudiantereportetutoriasacademicas\n" +
+                            "INNER JOIN estudiante ON estudiante.matricula = estudiantereportetutoriasacademicas.matricula\n" +
+                            "WHERE estudiantereportetutoriasacademicas.idReporteTutoriasAcademicas = ?";
+            try {
+                PreparedStatement configurarConsulta = conexionBaseDatos.prepareStatement(consulta);
+                configurarConsulta.setInt(1, reporteTutoriasAcademicas.getIdReporteTutoriasAcademicas());
+                ResultSet resultado = configurarConsulta.executeQuery();
+                while (resultado.next()) {
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setMatricula(resultado.getString("matricula"));
+                    estudiante.setNombre(resultado.getString("nombre"));
+                    estudiante.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                    estudiante.setEsAsistente(resultado.getBoolean("esAsistente"));
+                    estudiante.setEnRiesgo(resultado.getBoolean("enRiesgo"));
+                    if (estudiante.esAsistente()) {
+                        CheckBox checkBox = new CheckBox();
+                        checkBox.setSelected(true);
+                        estudiante.setCheckBoxEsAsistente(checkBox);
+                    }
+                    if (estudiante.enRiesgo()) {
+                        CheckBox checkBox = new CheckBox();
+                        checkBox.setSelected(true);
+                        estudiante.setCheckBoxEnRiesgo(checkBox);
+                    }
+                    estudiantes.add(estudiante);
+                }
+                conexionBaseDatos.close();
+            } catch (SQLException ex) {
+                Utilidades.mostrarAlerta("ERROR",
+                        "No se pudo conectar con la base de datos. \n\nPor favor, inténtelo más tarde.\n",
+                        Alert.AlertType.ERROR);
+            }
+        } else {
+            estudiantes = null;
+        }
+        return estudiantes;
+    }
+    
 }

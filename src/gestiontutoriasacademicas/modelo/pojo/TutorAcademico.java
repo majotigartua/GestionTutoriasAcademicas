@@ -112,4 +112,9 @@ public class TutorAcademico {
         this.codigoRespuesta = codigoRespuesta;
     }
     
+    @Override
+    public String toString() {
+        return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+    }
+    
 }

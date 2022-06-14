@@ -15,6 +15,7 @@ import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.Profesor;
 import gestiontutoriasacademicas.util.Constantes;
 import gestiontutoriasacademicas.util.Utilidades;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -33,8 +34,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javax.swing.WindowConstants;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class FXMLProblematicaAcademicaController implements Initializable {
 
@@ -106,8 +111,6 @@ public class FXMLProblematicaAcademicaController implements Initializable {
                 buttonAceptar.setVisible(false);
                 cargarProblematicaAcademicaSeleccionada();
                 break;
-            default:
-                break;
         }
     }
 
@@ -158,15 +161,61 @@ public class FXMLProblematicaAcademicaController implements Initializable {
 
     @FXML
     private void clicButtonDescargar(ActionEvent event) {
+        boolean esImprimir = false;
+        int posicionComboBoxExperienciaEducativa = obtenerIndiceExperienciaEducativa(problematicaAcademicaSeleccionada.getIdExperienciaEducativa());
+        comboBoxExperienciaEducativa.getSelectionModel().select(posicionComboBoxExperienciaEducativa);
+        ExperienciaEducativa experienciaEducativa = comboBoxExperienciaEducativa.getSelectionModel().getSelectedItem();
+        String nombreReporteProblematicaAcademica = "\\" + problematicaAcademicaSeleccionada.getTitulo() + "_" + experienciaEducativa.getNombre() + ".pdf";
+        nombreReporteProblematicaAcademica = nombreReporteProblematicaAcademica.replace(" ", "");
+        DirectoryChooser seleccionarDirectorio = new DirectoryChooser();
+        File directorio = seleccionarDirectorio.showDialog(textFieldTitulo.getScene().getWindow());
+        String pathnombreDelReporte = directorio.getPath() + nombreReporteProblematicaAcademica;
+        if (directorio != null) {
+            exportar(esImprimir, problematicaAcademicaSeleccionada.getIdProblematicaAcademica(), nombreReporteProblematicaAcademica, pathnombreDelReporte);
+        }
     }
 
     @FXML
     private void clicButtonImprimir(ActionEvent event) throws JRException {
+        boolean esImprimir = true;
+        int posicionComboBoxExperienciaEducativa = obtenerIndiceExperienciaEducativa(problematicaAcademicaSeleccionada.getIdExperienciaEducativa());
+        comboBoxExperienciaEducativa.getSelectionModel().select(posicionComboBoxExperienciaEducativa);
+        ExperienciaEducativa experienciaEducativa = comboBoxExperienciaEducativa.getSelectionModel().getSelectedItem();
+        String nombreReporteProblematicaAcademica = problematicaAcademicaSeleccionada.getTitulo() + "_" + experienciaEducativa.getNombre() + ".pdf";
+        nombreReporteProblematicaAcademica = nombreReporteProblematicaAcademica.replace(" ", "");
+        exportar(esImprimir, problematicaAcademicaSeleccionada.getIdProblematicaAcademica(), nombreReporteProblematicaAcademica, null);
     }
 
     @FXML
     private void clicButtonCancelar(ActionEvent event) {
         cerrarVentana();
+    }
+
+    private void exportar(boolean esImprimir, int idProblematicaAcademica, String nombreReporteProblematicaAcademica, String path) {
+        JasperPrint jasperPrint;
+        if (esImprimir) {
+            jasperPrint = ProblematicaAcademicaDAO.crearReporteProblematicaAcademica(idProblematicaAcademica, nombreReporteProblematicaAcademica);
+            if (jasperPrint != null) {
+                JasperViewer visualizarReportePtoblematicaAcademica = new JasperViewer(jasperPrint, false);
+                visualizarReportePtoblematicaAcademica.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                visualizarReportePtoblematicaAcademica.setVisible(true);
+            } else {
+                Utilidades.mostrarAlerta("ERROR",
+                        "No se pudo crear correctamente el reporte de problemática académica. \n\nPor favor, inténtelo más tarde.\n",
+                        Alert.AlertType.ERROR);
+            }
+        } else {
+            jasperPrint = ProblematicaAcademicaDAO.crearReporteProblematicaAcademica(idProblematicaAcademica, path);
+            if (jasperPrint != null) {
+                Utilidades.mostrarAlerta("AVISO",
+                        "La descarga se ha completado correctamente.\n",
+                        Alert.AlertType.INFORMATION);
+            } else {
+                Utilidades.mostrarAlerta("ERROR",
+                        "No se pudo crear correctamente el reporte de problemática académica. \n\nPor favor, inténtelo más tarde.\n",
+                        Alert.AlertType.ERROR);
+            }
+        }
     }
 
     private void modificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {

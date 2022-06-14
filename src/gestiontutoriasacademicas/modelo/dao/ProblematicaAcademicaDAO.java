@@ -8,6 +8,7 @@ package gestiontutoriasacademicas.modelo.dao;
 
 import gestiontutoriasacademicas.modelo.ConexionBaseDatos;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
+import gestiontutoriasacademicas.modelo.pojo.ReporteTutoriasAcademicas;
 import gestiontutoriasacademicas.util.Constantes;
 import gestiontutoriasacademicas.util.Utilidades;
 import java.sql.Connection;
@@ -16,6 +17,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 public class ProblematicaAcademicaDAO {
 
@@ -206,6 +216,83 @@ public class ProblematicaAcademicaDAO {
             codigoRespuesta = Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS;
         }
         return codigoRespuesta;
+    }
+    
+    public static ArrayList<ProblematicaAcademica> obtenerProblematicaAcademicasPorReporteTutoriasAcademicas(ReporteTutoriasAcademicas reporteTutoriasAcademicas) {
+        ArrayList<ProblematicaAcademica> problematicasAcademicas = new ArrayList<>();
+        Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
+        if (conexionBaseDatos != null) {
+            try {
+                String consulta = "SELECT problematicaacademica.idProblematicaAcademica, experienciaeducativa.nombre as nombreExperienciaEducativa, profesor.nombre as nombreProfesor, profesor.apellidoPaterno, profesor.apellidoMaterno, titulo, numEstudiantes "
+                                + "FROM problematicaacademica\n" +
+                                "INNER JOIN ofertaacademica ON ofertaacademica.idOfertaAcademica = problematicaacademica.idOfertaAcademica\n" +
+                                "INNER JOIN experienciaeducativa ON experienciaeducativa.idExperienciaEducativa = ofertaacademica.idExperienciaEducativa\n" +
+                                "INNER JOIN profesor ON profesor.idProfesor = ofertaacademica.idProfesor\n" +
+                                "WHERE problematicaacademica.idReporteTutoriasAcademicas = ?";
+                PreparedStatement configurarConsulta = conexionBaseDatos.prepareStatement(consulta);
+                configurarConsulta.setInt(1, reporteTutoriasAcademicas.getIdReporteTutoriasAcademicas());
+                ResultSet resultado = configurarConsulta.executeQuery();
+                while (resultado.next()) {
+                    ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
+                    problematicaAcademica.setIdProblematicaAcademica(resultado.getInt("idProblematicaAcademica"));
+                    problematicaAcademica.setTitulo(resultado.getString("titulo"));
+                    problematicaAcademica.setNumEstudiantes(resultado.getInt("numEstudiantes"));
+                    problematicaAcademica.setNombreExperienciaEducativa(resultado.getString("nombreExperienciaEducativa"));
+                    problematicaAcademica.setNombreProfesor(resultado.getString("nombreProfesor"));
+                    problematicaAcademica.setApellidoPaternoProfesor(resultado.getString("apellidoPaterno"));
+                    problematicaAcademica.setApellidoMaternoProfesor(resultado.getString("apellidoMaterno"));
+                    problematicasAcademicas.add(problematicaAcademica);
+                }
+                conexionBaseDatos.close();
+            } catch (SQLException ex) {
+                Utilidades.mostrarAlerta("ERROR",
+                        "No se pudo conectar con la base de datos. \n\nPor favor, inténtelo más tarde.\n",
+                        Alert.AlertType.ERROR);
+            }
+        } else {
+            Utilidades.mostrarAlerta("ERROR",
+                    "No se pudo conectar con la base de datos. \n\nPor favor, inténtelo más tarde.\n",
+                    Alert.AlertType.ERROR);
+        }
+        return problematicasAcademicas;
+    }
+    
+    public static JasperPrint crearReporteProblematicaAcademica(int idProblematicaAcademica, String nombreDelReporte){
+        JasperPrint jprint = null;
+        String pathArchivoJRXML = "src\\gestiontutoriasacademicas\\util\\reporteProblematicaAcademica.jrxml";        
+        Connection conexionBaseDatos = ConexionBaseDatos.abrirConexion();
+        if (conexionBaseDatos != null) {
+            String sentencia = "SELECT CONCAT(profesor.`nombre`, ' ',profesor.`apellidoPaterno`, ' ', profesor.`apellidoMaterno`) AS PROFESOR,\n" +
+                "CONCAT(tutoracademico.`nombre`, ' ', tutoracademico.`apellidoPaterno`, ' ', tutoracademico.`apellidoMaterno`) AS TUTOR,\n" +
+                "problematicaacademica.`titulo` AS Titulo, problematicaacademica.`descripcion` AS Descripcion,\n" +
+                "problematicaacademica.`numEstudiantes` AS Número_de_Estudiantes, experienciaeducativa.`nombre` AS EENombre\n" +
+                "FROM\n" +
+                "`ofertaacademica` ofertaacademica INNER JOIN `problematicaacademica` problematicaacademica ON ofertaacademica.`idOfertaAcademica` = problematicaacademica.`idOfertaAcademica`\n" +
+                "INNER JOIN `profesor` profesor ON ofertaacademica.`idProfesor` = profesor.`idProfesor`\n" +
+                "INNER JOIN `experienciaeducativa` experienciaeducativa ON ofertaacademica.`idExperienciaEducativa` = experienciaeducativa.`idExperienciaEducativa`\n" +
+                "INNER JOIN `reportetutoriasacademicas` reportetutoriasacademicas ON problematicaacademica.`idReporteTutoriasAcademicas` = reportetutoriasacademicas.`idReporteTutoriasAcademicas`\n" +
+                "INNER JOIN `tutoracademico` tutoracademico ON reportetutoriasacademicas.`nombreUsuario` = tutoracademico.`nombreUsuario`\n" +
+                "WHERE problematicaacademica.`idProblematicaAcademica` = " + idProblematicaAcademica + ";";
+            try {
+            JasperDesign jasperDesing = JRXmlLoader.load(pathArchivoJRXML);
+            JRDesignQuery query = new JRDesignQuery();
+            query.setText(sentencia);
+            jasperDesing.setQuery(query);
+            JasperReport jasperReport =  JasperCompileManager.compileReport(jasperDesing);
+            jprint = JasperFillManager.fillReport(jasperReport, null, conexionBaseDatos);
+            JasperExportManager.exportReportToPdfFile(jprint,nombreDelReporte);
+            } catch (JRException ex) {
+                Utilidades.mostrarAlerta("ERROR",
+                        "No se pudo crear el reporte de problemática académica correctamente. \n\nPor favor, inténtelo más tarde.\n",
+                        Alert.AlertType.ERROR);
+                System.err.println(ex);
+            }
+        } else {
+            Utilidades.mostrarAlerta("ERROR",
+                "No se pudo conectar con la base de datos. \n\nPor favor, inténtelo más tarde.\n",
+                Alert.AlertType.ERROR);
+        }
+        return jprint;
     }
 
 }

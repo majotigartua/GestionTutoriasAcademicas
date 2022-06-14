@@ -6,10 +6,13 @@
  */
 package gestiontutoriasacademicas.vistas;
 
+import gestiontutoriasacademicas.interfaces.NotificacionComentarioGeneral;
 import gestiontutoriasacademicas.interfaces.NotificacionProblematicaAcademica;
+import gestiontutoriasacademicas.modelo.dao.ComentarioGeneralDAO;
 import gestiontutoriasacademicas.modelo.dao.EstudianteDAO;
 import gestiontutoriasacademicas.modelo.dao.ProblematicaAcademicaDAO;
 import gestiontutoriasacademicas.modelo.dao.ReporteTutoriasAcademicasDAO;
+import gestiontutoriasacademicas.modelo.pojo.ComentarioGeneral;
 import gestiontutoriasacademicas.modelo.pojo.Estudiante;
 import gestiontutoriasacademicas.modelo.pojo.ProblematicaAcademica;
 import gestiontutoriasacademicas.modelo.pojo.ReporteTutoriasAcademicas;
@@ -43,7 +46,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable, NotificacionProblematicaAcademica {
+public class FXMLLlenarReporteTutoriasAcademicasController implements Initializable, NotificacionProblematicaAcademica, NotificacionComentarioGeneral {
 
     @FXML
     private TextField textFieldPeriodoEscolar;
@@ -66,15 +69,12 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
     @FXML
     private TableColumn columnEnRiesgo;
     @FXML
-    private Button buttonAceptar;
-    @FXML
-    private Button buttonRegistrarProblematicaAcademica;
-    @FXML
     private Button buttonRegistrarComentarioGeneral;
 
     private TutorAcademico tutorAcademico;
     private TutoriaAcademica tutoriaAcademica;
     private ArrayList<ProblematicaAcademica> problematicasAcademicas;
+    private ComentarioGeneral comentarioGeneral;
     private ObservableList<Estudiante> estudiantes;
 
     @Override
@@ -140,7 +140,24 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
         } catch (IOException ex) {
             System.err.println("Error al cargar la pantalla de 'Registrar problemática académica'...");
         }
+    }
 
+    @FXML
+    private void clicButtonRegistrarComentarioGeneral(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLRegistrarComentarioGeneral.fxml"));
+        try {
+            Parent root = loader.load();
+            FXMLRegistrarComentarioGeneralController registrarComentarioGeneralController = loader.getController();
+            registrarComentarioGeneralController.configurarEscena(this);
+            Stage escenarioRegistrarComentarioGeneral = new Stage();
+            Scene pantallaRegistrarComentarioGeneral = new Scene(root);
+            escenarioRegistrarComentarioGeneral.setScene(pantallaRegistrarComentarioGeneral);
+            escenarioRegistrarComentarioGeneral.initModality(Modality.APPLICATION_MODAL);
+            escenarioRegistrarComentarioGeneral.setTitle("Registrar comentario general");
+            escenarioRegistrarComentarioGeneral.showAndWait();
+        } catch (IOException ex) {
+            System.err.println("Error al cargar la pantalla de 'Registrar comentario general'...");
+        }
     }
 
     private void registrarReporteTutoriasAcademicas(ReporteTutoriasAcademicas reporteTutoriasAcademicas) {
@@ -154,6 +171,7 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
                     "La información se registró correctamente en el sistema.\n",
                     Alert.AlertType.INFORMATION);
             asignarProblematicasAcademicas();
+            asignarComentarioGeneral();
             asignarEstudiantes();
             irMenuPrincipal();
         }
@@ -168,6 +186,19 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
                         "No se pudo conectar con la base de datos. \n\nPor favor, inténtelo más tarde.\n",
                         Alert.AlertType.ERROR);
             }
+        }
+    }
+
+    private void asignarComentarioGeneral() {
+        if (comentarioGeneral == null) {
+            comentarioGeneral = new ComentarioGeneral("No se registró ningún comentario general.");
+        }
+        int codigoRespuesta = ComentarioGeneralDAO.registrarComentarioGeneral(comentarioGeneral,
+                tutoriaAcademica.getIdTutoriaAcademica(), tutorAcademico.getNombreUsuario());
+        if (codigoRespuesta == Constantes.CODIGO_ERROR_CONEXION_BASE_DATOS) {
+            Utilidades.mostrarAlerta("ERROR",
+                    "No se pudo conectar con la base de datos. \n\nPor favor, inténtelo más tarde.\n",
+                    Alert.AlertType.ERROR);
         }
     }
 
@@ -222,6 +253,12 @@ public class FXMLLlenarReporteTutoriasAcademicasController implements Initializa
     @Override
     public void notificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
         problematicasAcademicas.add(problematicaAcademica);
+    }
+
+    @Override
+    public void notificarComentarioGeneral(ComentarioGeneral comentarioGeneral) {
+        buttonRegistrarComentarioGeneral.setDisable(true);
+        this.comentarioGeneral = comentarioGeneral;
     }
 
 }

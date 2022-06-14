@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiontutoriasacademicas.vistas.FXMLProblematicaAcademicaController">
    <children>
-      <Label layoutX="41.0" layoutY="34.0" text="Ingrese la información de la problemática académica, y dé clic en el botón de &quot;Aceptar&quot;.">
+      <Label layoutX="38.0" layoutY="34.0" text="Ingrese la información de la problemática académica, y dé clic en el botón de &quot;Aceptar&quot;.">
          <font>
             <Font size="13.0" />
          </font>
@@ -64,7 +64,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Label fx:id="labelCamposVacios" layoutX="38.0" layoutY="66.0" style="-fx-background-color: #FFB140;">
+      <Label fx:id="labelCamposVacios" layoutX="38.0" layoutY="66.0" textFill="RED">
          <font>
             <Font size="13.0" />
          </font>

@@ -78,9 +78,19 @@ public class FXMLMenuPrincipalController implements Initializable {
 
     @FXML
     private void clicButtonConsultarReporteTutorAcademico(ActionEvent event) {
-        if (tutorAcademico.getIdRol() == Constantes.ID_ROL_COORDINADOR_TUTORIAS_ACADEMICAS
-                || tutorAcademico.getIdRol() == Constantes.ID_ROL_JEFE_CARRERA) {
-            // TODO
+        if (tutorAcademico.getIdRol() == Constantes.ID_ROL_COORDINADOR_TUTORIAS_ACADEMICAS || tutorAcademico.getIdRol() == Constantes.ID_ROL_JEFE_CARRERA) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLReportesTutoriasAcademicas.fxml"));
+            try {
+                Parent root = loader.load();
+                FXMLReportesTutoriasAcademicasController reportesTutoriasAcademicas = loader.getController();
+                Stage escenarioPrincipal = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene pantallaReportesTutoriasAcademicas = new Scene(root);
+                escenarioPrincipal.setScene(pantallaReportesTutoriasAcademicas);
+                escenarioPrincipal.setTitle("Reportes de Tutorías Académicas");
+                escenarioPrincipal.show();
+            } catch(IOException ex) {
+                System.err.println("Error al cargar la pantalla de 'Problemáticas académicas'...");
+            }
         } else {
             Utilidades.mostrarAlerta("AVISO",
                     "Actualmente no tiene permiso de acceso a esta acción. \n\nPor favor, inténtelo más tarde.\n",

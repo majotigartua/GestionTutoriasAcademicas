@@ -13,10 +13,16 @@ public class ProblematicaAcademica {
     private String descripcion;
     private int numEstudiantes;
     private int idProfesor;
+    private String nombreProfesor;
+    private String apellidoPaternoProfesor;
+    private String apellidoMaternoProfesor;
     private int idExperienciaEducativa;
+    private String nombreExperienciaEducativa;
     private String codigoPeriodoEscolar;
     private int idReporteTutoriasAcademicas;
     private int idSolucionProblematicaAcademica;
+    
+    
     public ProblematicaAcademica() {
     }
 
@@ -101,6 +107,38 @@ public class ProblematicaAcademica {
         this.idSolucionProblematicaAcademica = idSolucionProblematicaAcademica;
     }
 
+    public String getNombreProfesor() {
+        return nombreProfesor;
+    }
+
+    public void setNombreProfesor(String nombreProfesor) {
+        this.nombreProfesor = nombreProfesor;
+    }
+
+    public String getApellidoPaternoProfesor() {
+        return apellidoPaternoProfesor;
+    }
+
+    public void setApellidoPaternoProfesor(String apellidoPaternoProfesor) {
+        this.apellidoPaternoProfesor = apellidoPaternoProfesor;
+    }
+
+    public String getApellidoMaternoProfesor() {
+        return apellidoMaternoProfesor;
+    }
+
+    public void setApellidoMaternoProfesor(String apellidoMaternoProfesor) {
+        this.apellidoMaternoProfesor = apellidoMaternoProfesor;
+    }
+
+    public String getNombreExperienciaEducativa() {
+        return nombreExperienciaEducativa;
+    }
+
+    public void setNombreExperienciaEducativa(String nombreExperienciaEducativa) {
+        this.nombreExperienciaEducativa = nombreExperienciaEducativa;
+    }
+    
     @Override
     public String toString() {
         return titulo;
