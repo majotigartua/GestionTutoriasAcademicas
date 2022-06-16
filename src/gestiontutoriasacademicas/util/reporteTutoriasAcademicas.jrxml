@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTutoriasAcademicas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="609f998f-1e6c-4ca6-a8fb-c4455e763162">
+	<property name="ireport.zoom" value="1.6105100000000028"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="410"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#8FCCCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#8FCCCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#73E6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["src\\gestiontutoriasacademicas\\util\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idReporteTutoriasAcademicas" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CONCAT(tutoracademico.`nombre`," ",tutoracademico.`apellidoPaterno`," ",tutoracademico.`apellidoMaterno`) AS NombreCompleto,
+     CONCAT(tutoriaacademica.`fechaInicio`," - ",tutoriaacademica.`fechaFin`) AS Fecha,
+     CONCAT(periodoescolar.`fechaInicio`," - ",periodoescolar.`fechaFin`) AS PeriodoEscolar,
+     tutoriaacademica.`numSesion` AS tutoriaacademica_numSesion,
+     reportetutoriasacademicas.`numEstudiantesAsistentes` AS reportetutoriasacademicas_numEstudiantesAsistentes,
+     reportetutoriasacademicas.`numEstudiantesEnRiesgo` AS reportetutoriasacademicas_numEstudiantesEnRiesgo,
+     comentariogeneral.`descripcion` AS comentariogeneral_descripcion
+FROM
+     `periodoescolar` periodoescolar INNER JOIN `tutoriaacademica` tutoriaacademica ON periodoescolar.`codigoPeriodoEscolar` = tutoriaacademica.`codigoPeriodoEscolar`
+     INNER JOIN `reportetutoriasacademicas` reportetutoriasacademicas ON tutoriaacademica.`idTutoriaAcademica` = reportetutoriasacademicas.`idTutoriaAcademica`
+     INNER JOIN `tutoracademico` tutoracademico ON reportetutoriasacademicas.`nombreUsuario` = tutoracademico.`nombreUsuario`
+     INNER JOIN `comentariogeneral` comentariogeneral ON reportetutoriasacademicas.`idReporteTutoriasAcademicas` = comentariogeneral.`idReporteTutoriasAcademicas`
+WHERE
+     reportetutoriasacademicas.`idReporteTutoriasAcademicas` = $P{idReporteTutoriasAcademicas}]]>
+	</queryString>
+	<field name="Fecha" class="java.lang.String"/>
+	<field name="PeriodoEscolar" class="java.lang.String"/>
+	<field name="numSesion" class="java.lang.Integer"/>
+	<field name="numEstudiantesAsistentes" class="java.lang.Integer"/>
+	<field name="numEstudiantesEnRiesgo" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="NombreCompleto" class="java.lang.String"/>
+	<title>
+		<band height="371" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="174" height="143" uuid="014b92d8-2bd5-4b8b-819f-bbfd7465fe08"/>
+				<imageExpression><![CDATA["src\\gestiontutoriasacademicas\\imagenes\\logoReporte.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="186" y="36" width="386" height="30" uuid="ec017503-d924-4d2d-96a0-6faabd8b2e3a"/>
+				<textElement textAlignment="Center">
+					<font size="23" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Tutorías Académicas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="65" width="386" height="28" uuid="209d6357-4add-4663-9b48-27e88447f3a3"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ingenería de Software]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="100" width="386" height="22" uuid="0791266a-bf18-47c8-b8be-68412584153d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facultad de Estadística e Informática]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="121" width="386" height="22" uuid="2e75dee4-d8d2-40ad-b3c6-7ec1da8e8e9b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Región Xalapa]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="440" y="0" width="132" height="20" uuid="92d38674-7240-4638-b95a-0d97ae90e1b7"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="151" width="572" height="1" uuid="af9bc66e-7388-4431-9edf-d1df3144d571"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="164" width="103" height="22" uuid="e98fd11c-c805-4c6f-b573-25361a4ef2c0"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Periodo Escolar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="164" width="42" height="22" uuid="7b1f5308-cd77-44be-8ce1-1381b7699904"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="196" width="104" height="22" uuid="6798ccd0-c708-4462-abb6-1ac47bae1dca"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Número de Sesión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="196" width="129" height="22" uuid="33ea98a5-9e51-4662-a083-3b07c52c6031"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Estudiantes Asistentes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="196" width="125" height="22" uuid="fe48144b-17e2-4127-a39b-4a315040a823"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Estudiantes en Riesgo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="228" width="118" height="22" uuid="bea46b1a-48f4-4f96-a886-8eb3c9fed6ac"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comentario General:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="250" width="572" height="95" uuid="1ab0017f-60f2-47dd-a068-c1e02f3a6b44"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="196" width="44" height="20" uuid="311ea104-6eee-4506-aab2-685e21575585"/>
+				<textFieldExpression><![CDATA[$F{numEstudiantesAsistentes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="503" y="196" width="69" height="20" uuid="6c1561f7-6cf6-41d5-9b49-023b92fd8ddd"/>
+				<textFieldExpression><![CDATA[$F{numEstudiantesEnRiesgo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="196" width="71" height="20" uuid="3e5e2dc2-194e-4f05-8225-475250545380"/>
+				<textFieldExpression><![CDATA[$F{numSesion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="164" width="152" height="20" uuid="b745e036-e02d-4df0-95e1-699f64158188"/>
+				<textFieldExpression><![CDATA[$F{PeriodoEscolar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="166" width="217" height="20" uuid="07656a4a-a9a4-4c7b-8297-7fcbe8d0a574"/>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="359" width="572" height="1" uuid="66612f8d-d067-4cf6-9f59-b31278d67c4f"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="80" splitType="Stretch">
+			<subreport>
+				<reportElement x="19" y="0" width="535" height="68" uuid="9495108f-7f22-4ed3-84d7-8709868438d1"/>
+				<subreportParameter name="idReporteTutoriasAcademicas">
+					<subreportParameterExpression><![CDATA[$P{idReporteTutoriasAcademicas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subReporteTutoriasAcademicasEstudiantes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="104">
+			<line>
+				<reportElement x="38" y="4" width="500" height="1" uuid="ec9f865a-69ff-4240-ac33-f3d8fccb3f80"/>
+			</line>
+			<subreport>
+				<reportElement x="19" y="11" width="535" height="76" uuid="80296d0f-cfa6-4814-9c3f-d2d18ae4e679"/>
+				<subreportParameter name="idReporteTutoriasAcademicas">
+					<subreportParameterExpression><![CDATA[$P{idReporteTutoriasAcademicas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subReporteProblematicasAcademicas.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="41" y="90" width="500" height="1" uuid="72badf57-0994-461e-a7fd-9da54cd4a7e4"/>
+			</line>
+		</band>
+		<band height="57">
+			<staticText>
+				<reportElement x="0" y="7" width="130" height="22" uuid="8328bb4c-b350-4607-b738-b56cfc2fe6b3"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Registrado por el tutor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="29" width="315" height="20" uuid="9705dd42-121c-4dc9-a4d3-ca58dcd5ca0b"/>
+				<textFieldExpression><![CDATA[$F{NombreCompleto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="48" y="3" width="500" height="1" uuid="b5e32752-9034-438d-bb4a-059f486b2576"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="441" y="5" width="80" height="20" uuid="1ec68725-7c19-4bf2-a6c5-9a1f365df142"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="520" y="5" width="50" height="20" uuid="d55dd662-e72b-4d63-a408-e4f25e06851a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReporteTutoriasAcademicasEstudiantes" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="62a9ee5a-b5d7-4669-aecd-812003a00d06">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idReporteTutoriasAcademicas" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CONCAT(estudiante.`nombre`," ",estudiante.`apellidoPaterno`," ",estudiante.`apellidoMaterno`) AS Nombre,
+     estudiante.`matricula` AS Matricula,
+     estudiantereportetutoriasacademicas.`esAsistente` AS Asistencia,
+     estudiantereportetutoriasacademicas.`enRiesgo` AS Riesgo
+FROM
+     `estudiante` estudiante INNER JOIN `estudiantereportetutoriasacademicas` estudiantereportetutoriasacademicas ON estudiante.`matricula` = estudiantereportetutoriasacademicas.`matricula`
+     INNER JOIN `reportetutoriasacademicas` reportetutoriasacademicas ON estudiantereportetutoriasacademicas.`idReporteTutoriasAcademicas` = reportetutoriasacademicas.`idReporteTutoriasAcademicas`
+WHERE reportetutoriasacademicas.`idReporteTutoriasAcademicas` = $P{idReporteTutoriasAcademicas}]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="Matricula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Asistencia" class="java.lang.String"/>
+	<field name="Riesgo" class="java.lang.String"/>
+	<title>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="141" y="0" width="285" height="20" uuid="34138c95-d218-4024-b8be-284b4de01b71"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Estudiantes Involucrados en la Tutoria Academica]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="29" y="0" width="110" height="20" uuid="b69d29b5-eb03-40cb-a806-4c7b491553dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="0" width="243" height="20" uuid="c622f233-0d73-418f-a9c1-b60e59d44a98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="0" width="51" height="20" uuid="f9d46d31-8e31-4db5-9251-907d71f4c0c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Asistencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="0" width="38" height="20" uuid="93e01059-23ca-46d0-955f-e1f18a3e67a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Riesgo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="29" y="0" width="110" height="20" uuid="67367b57-457d-4c81-b33f-de6cd1bbcb7e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="0" width="243" height="20" uuid="15b8a843-7939-49c9-99bb-6990c5461cb7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="51" height="20" uuid="239255a6-bf65-48ee-a1b0-5a8ea0b08df0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Asistencia}.equals("1") ? "SI" : "X"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="0" width="38" height="20" uuid="930086e0-e19e-4478-90c2-375d4e045f00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Riesgo}.equals("1") ? "SI" : "X"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
